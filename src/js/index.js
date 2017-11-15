@@ -19,7 +19,8 @@ canvas.addEventListener('click', e => {
     sectors: generateMandala(random(50, 100), random(25, 35), random(25, 35)),
     time: 0.1,
     angle: 0,
-    color: `hsl(${random(50, 360)}, ${random(10, 100)}%, ${random(10, 100)}%)`
+    color: `hsl(${random(50, 360)}, ${random(10, 100)}%, ${random(10, 100)}%)`,
+    direction: random(0, 10) % 2 === 1 ? 1 : -1
   })
 
   console.log(mandals)
@@ -32,7 +33,7 @@ const render = () => {
   for (let mandala of mandals) {
     drawMandal(ctx, mandala.sectors, mandala.center, mandala.time, mandala.angle, mandala.color)
     mandala.time = mandala.time < 1 ? mandala.time + 0.01 : 1
-    mandala.angle += RADIAN_IN_ONE_DEG
+    mandala.angle += RADIAN_IN_ONE_DEG * mandala.direction
   }
 
   requestAnimationFrame(render)
