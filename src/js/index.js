@@ -10,23 +10,25 @@ const canvas = createCanvas(window.innerHeight, window.innerWidth)
 document.getElementsByTagName('body')[0]
   .appendChild(canvas)
 
-let center = {}
+let mandals = []
 
 canvas.addEventListener('click', e => {
-  center = getClickPoint(e)
+  mandals.push({
+    center: getClickPoint(e),
+    sectors: generateMandala(100, 25, 25),
+    time: 0.1,
+    angle: 0
+  })
 })
 
 const ctx = canvas.getContext('2d')
-const sectors = generateMandala(100, 8, 100)
 
-let time = 0.1
-let angle = 0
 const render = () => {
-  if (center.x && center.y) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawMandal(ctx, sectors, center, time, angle)
-    time = time < 1 ? time + 0.01 : 1
-    angle += RADIAN_IN_ONE_DEG
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  for (let mandala of mandals) {
+    drawMandal(ctx, mandala.sectors, mandala.center, mandala.time, mandala.angle)
+    mandala.time = mandala.time < 1 ? mandala.time + 0.01 : 1
+    mandala.angle += RADIAN_IN_ONE_DEG
   }
 
   requestAnimationFrame(render)
