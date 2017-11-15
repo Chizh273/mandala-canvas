@@ -2,6 +2,7 @@ import 'scss/index.scss'
 import createCanvas from './utils/crateCanvas'
 import { generateMandala } from './utils/generateMandala'
 import { drawMandal } from './draw'
+import { RADIAN_IN_ONE_DEG } from './constants'
 
 const canvas = createCanvas(window.innerHeight, window.innerWidth)
 
@@ -14,21 +15,16 @@ const center = {
 }
 
 const ctx = canvas.getContext('2d')
-const sectors = generateMandala(300, 12)
+const sectors = generateMandala(300, 15)
 
 let time = 0.1
-function render () {
-  if (time < 1) {
-    ctx.save()
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.scale(time, time)
-    drawMandal(ctx, sectors, center)
+let angle = 0
+const render = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  drawMandal(ctx, sectors, center, time, angle)
+  time = time < 1 ? time + 0.01 : 1
+  angle += RADIAN_IN_ONE_DEG
 
-    time += 0.001
-
-    console.log(time)
-    requestAnimationFrame(render)
-    ctx.restore()
-  }
+  requestAnimationFrame(render)
 }
 render()

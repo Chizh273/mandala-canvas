@@ -1,6 +1,8 @@
 import { applayOffset } from './utils/applyOffset'
+import { applyScale } from './utils/applyScale'
+import { applyRotate } from './utils/applyRotate'
 
-export const drawMandal = (ctx, sectors, center) => {
+export const drawMandal = (ctx, sectors, center, scale, angel) => {
   ctx.beginPath()
 
   for (let sector of sectors) {
@@ -9,8 +11,14 @@ export const drawMandal = (ctx, sectors, center) => {
     ctx.strokeStyle = 'rgb(255, 0, 0)'
 
     for (let point of sector) {
-      const movedPoint = applayOffset(point, center)
-      ctx.lineTo(movedPoint.x, movedPoint.y)
+      const translatePoint = applayOffset(
+        applyScale(
+          applyRotate(point, angel),
+          scale
+        ),
+        center
+      )
+      ctx.lineTo(translatePoint.x, translatePoint.y)
     }
   }
   ctx.stroke()
