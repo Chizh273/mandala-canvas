@@ -7,8 +7,7 @@ export const drawMandal = (ctx, sectors, center, scale, angel) => {
 
   for (let sector of sectors) {
     ctx.moveTo(sector[0].x + center.x, sector[0].y + center.y)
-    ctx.fillStyle = 'rgb(255, 0, 0)'
-    ctx.strokeStyle = 'rgb(255, 0, 0)'
+    ctx.strokeStyle = 'rgb(255, 255, 0)'
 
     for (let point of sector) {
       const translatePoint = applayOffset(

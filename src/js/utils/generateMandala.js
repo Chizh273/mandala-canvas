@@ -2,8 +2,8 @@ import random from 'lodash.random'
 import { DEG_360, RADIAN_IN_ONE_DEG } from '../constants'
 import { applyRotate } from './applyRotate'
 
-export const generateMandala = (radius, countSide) => {
-  const points = generateBasePoints(radius)
+export const generateMandala = (radius, countSide, countPoints) => {
+  const points = generateBasePoints(radius, countPoints)
   const sectors = []
   const angle = (DEG_360 / countSide) * RADIAN_IN_ONE_DEG
 
@@ -17,10 +17,10 @@ export const generateMandala = (radius, countSide) => {
   return sectors
 }
 
-export const generateBasePoints = (radius) => {
+export const generateBasePoints = (radius, countPoints) => {
   const points = []
 
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < countPoints; i++) {
     const point = {
       x: random(0, radius),
       y: random(0, radius)
