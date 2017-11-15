@@ -1,4 +1,4 @@
-# Webpack ES6 + SCSS Boilerplate
+# Mandala canvas
 
 ### Example
   ![Example](example.gif)
