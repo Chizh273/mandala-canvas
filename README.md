@@ -1,5 +1,8 @@
 # Webpack ES6 + SCSS Boilerplate
 
+### Example
+  ![Example](example.gif)
+
 ### Run dev server
 ``
 yarn start
