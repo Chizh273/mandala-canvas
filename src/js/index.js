@@ -1,4 +1,4 @@
-import 'scss/index.scss'
+import '../css/main.css'
 import random from 'lodash.random'
 import createCanvas from './utils/crateCanvas'
 import { generateMandala } from './utils/generateMandala'

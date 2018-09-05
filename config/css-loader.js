@@ -13,7 +13,7 @@ module.exports = {
   ],
   module: {
     rules: [{
-      test: /\.scss$/,
+      test: /\.css$/,
       use: extractSass.extract({
         use: [
           {
@@ -26,10 +26,6 @@ module.exports = {
           },
           {
             loader: 'resolve-url-loader',
-            options: {sourceMap: !config.isProd}
-          },
-          {
-            loader: 'sass-loader',
             options: {sourceMap: !config.isProd}
           }
         ],

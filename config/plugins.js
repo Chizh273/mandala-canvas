@@ -4,7 +4,6 @@ const path = require('path')
 const webpack = require('webpack')
 const WebpackNotifierPlugin = require('webpack-notifier')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const SassLintPlugin = require('sasslint-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
@@ -14,12 +13,6 @@ const production = require('../environments/production')
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': config.isProd ? production : develop
-  }),
-  new SassLintPlugin({
-    configFile: path.join(__dirname, '..', '.sass-lint.yml'),
-    glob: 'src/**/*.s?(a|c)ss',
-    failOnWarning: false,
-    failOnError: false
   }),
   new HtmlWebpackPlugin({
     inject: true,

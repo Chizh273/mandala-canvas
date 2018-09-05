@@ -7,7 +7,7 @@ const devServer = require('./config/dev-server')
 const resolve = require('./config/resolve')
 const plugins = require('./config/plugins')
 const rules = require('./config/rules')
-const scss = require('./config/scss-loader')
+const css = require('./config/css-loader')
 
 module.exports = {
   entry: {
@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     ...plugins,
-    ...scss.plugins
+    ...css.plugins
   ],
   devServer,
   devtool: !config.isProd ? 'source-map' : 'nosources-source-map',
@@ -29,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       ...rules,
-      ...scss.module.rules
+      ...css.module.rules
     ]
   }
 }
