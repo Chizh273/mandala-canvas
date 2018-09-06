@@ -10,7 +10,7 @@ export const generateMandala = (radius, countSide, countPoints) => {
   for (let i = 0; i < countSide; i++) {
     sectors[i] = []
     for (let point of points) {
-      sectors[i].push(applyRotate(point, angle * i))
+      sectors[i].push(applyRotate(angle * i, point))
     }
   }
 

@@ -1,45 +1,33 @@
-import { applayOffset } from './utils/applyOffset'
-import { applyScale } from './utils/applyScale'
-import { applyRotate } from './utils/applyRotate'
-import { getFigurePoints } from './utils/getFigurePoints'
-import { RADIAN_IN_ONE_DEG } from './constants'
+import {applyTransforms} from './utils/applyTransforms'
+import {getFigurePoints} from './utils/getFigurePoints'
+import {RADIAN_IN_ONE_DEG} from './constants'
 
-export const drawMandal = (ctx, sectors, center, scale, angel, color) => {
+export const drawMandala = (ctx, {sectors, center, scale, angle, color}) => {
   ctx.beginPath()
 
   for (let sector of sectors) {
     ctx.moveTo(sector[0].x + center.x, sector[0].y + center.y)
     ctx.strokeStyle = color
 
-    for (let point of sector) {
-      const translatePoint = applayOffset(
-        center,
-        applyScale(
-          scale,
-          applyRotate(angel, point)
-        )
-      )
-      ctx.lineTo(translatePoint.x, translatePoint.y)
-    }
+    applyTransforms(center, angle, scale)(sector)
+      .map(point => ctx.lineTo(point.x, point.y))
   }
   ctx.stroke()
   ctx.closePath()
 }
 
-export const drawRect = (ctx, count, center, radius, countSides, color, angle, countNow) => {
-  for (let i = 0; i < countNow; i++) {
+export const drawFigure = (ctx, {count, center, radius, countSides, color, angle, countFigures}) => {
+  for (let i = 0; i < countFigures; i++) {
     angle += RADIAN_IN_ONE_DEG * i * (360 / count)
 
     ctx.beginPath()
 
-    const points = getFigurePoints(center, radius, countSides, angle)
+    const points = applyTransforms(center, angle)(getFigurePoints(radius, countSides))
 
     ctx.moveTo(points[0].x, points[0].y)
     ctx.strokeStyle = color
 
-    for (let point of points) {
-      ctx.lineTo(point.x, point.y)
-    }
+    points.map(point => ctx.lineTo(point.x, point.y))
 
     ctx.stroke()
     ctx.closePath()
