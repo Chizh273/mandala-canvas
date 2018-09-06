@@ -2,10 +2,11 @@ import 'sanitize.css'
 import '../css/main.css'
 import random from 'lodash.random'
 import createCanvas from './utils/crateCanvas'
-import {RADIAN_IN_ONE_DEG} from './constants'
-import {getClickPoint} from './utils/getClickPoint'
-import {drawFigure, drawMandala} from './draw'
-import {generateMandala} from './utils/generateMandala'
+import { RADIAN_IN_ONE_DEG } from './constants'
+import { getClickPoint } from './utils/getClickPoint'
+import { drawFigure, drawMandala } from './draw'
+import { generateMandala } from './utils/generateMandala'
+import append from 'ramda/es/append'
 
 const canvas = createCanvas(window.innerHeight, window.innerWidth)
 
@@ -15,7 +16,7 @@ document.getElementsByTagName('body')[0]
 let figures = []
 
 canvas.addEventListener('click', e => {
-  figures.push({
+  figures = append({
     center: getClickPoint(e),
     sectors: random(0, 10) % 2 === 1
       ? generateMandala(random(50, 100), random(25, 35), random(25, 35))
@@ -25,13 +26,11 @@ canvas.addEventListener('click', e => {
     count: random(10, 20),
     countFigures: 1,
     time: 0,
-    scale: 0,
+    scale: 0.00001,
     angle: 0,
     color: `hsl(${random(50, 360)}, ${random(10, 100)}%, ${random(10, 100)}%)`,
     direction: random(0, 10) % 2 === 1 ? 1 : -1
-  })
-
-  console.log(figures)
+  }, figures)
 })
 
 const ctx = canvas.getContext('2d')
