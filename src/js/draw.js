@@ -1,7 +1,7 @@
 import { applayOffset } from './utils/applyOffset'
 import { applyScale } from './utils/applyScale'
 import { applyRotate } from './utils/applyRotate'
-import { getRectPoints } from './utils/getRectPoints'
+import { getFigurePoints } from './utils/getFigurePoints'
 import { RADIAN_IN_ONE_DEG } from './constants'
 
 export const drawMandal = (ctx, sectors, center, scale, angel, color) => {
@@ -26,13 +26,13 @@ export const drawMandal = (ctx, sectors, center, scale, angel, color) => {
   ctx.closePath()
 }
 
-export const drawRect = (ctx, count, center, width, height, color, angle) => {
-  for (let i = 0; i < count; i++) {
+export const drawRect = (ctx, count, center, radius, countSides, color, angle, countNow) => {
+  for (let i = 0; i < countNow; i++) {
     angle += RADIAN_IN_ONE_DEG * i * (360 / count)
 
     ctx.beginPath()
 
-    const points = getRectPoints(center, width, height, angle)
+    const points = getFigurePoints(center, radius, countSides, angle)
 
     ctx.moveTo(points[0].x, points[0].y)
     ctx.strokeStyle = color

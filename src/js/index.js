@@ -8,9 +8,6 @@ import { drawRect } from './draw'
 
 const canvas = createCanvas(window.innerHeight, window.innerWidth)
 
-const WIDTH = 200
-const HEIGHT = 100
-
 document.getElementsByTagName('body')[0]
   .appendChild(canvas)
 
@@ -22,8 +19,11 @@ canvas.addEventListener('click', e => {
   rects.push({
     x: center.x,
     y: center.y,
+    countSides: random(3, 7),
+    radiius: random(100, 200),
     count: random(10, 20),
-    time: 0.1,
+    countNow: 1,
+    time: 0,
     angle: 0,
     color: `hsl(${random(50, 360)}, ${random(10, 100)}%, ${random(10, 100)}%)`,
     direction: random(0, 10) % 2 === 1 ? 1 : -1
@@ -37,10 +37,12 @@ const ctx = canvas.getContext('2d')
 const render = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   for (let rect of rects) {
-    drawRect(ctx, rect.count, rect, WIDTH, HEIGHT, rect.color, rect.angle)
+    drawRect(ctx, rect.count, rect, rect.radiius, rect.countSides, rect.color, rect.angle, rect.countNow)
 
-    rect.time = rect.time < 1 ? rect.time + 0.01 : 1
+    rect.time++
     rect.angle += RADIAN_IN_ONE_DEG * rect.direction
+
+    if (rect.time % 30 === 0 && rect.count > rect.countNow) rect.countNow++
   }
 
   ctx.stroke()
