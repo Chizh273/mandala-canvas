@@ -1,5 +1,5 @@
-export default (height, width) => {
-  const canvas = document.createElement('canvas')
+export const createCanvas = (root, height, width) => {
+  const canvas = root.createElement('canvas')
 
   canvas.id = 'rootCanvas'
   canvas.width = width
